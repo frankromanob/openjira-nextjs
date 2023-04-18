@@ -1,4 +1,4 @@
-import { Box, Drawer, List, ListItem, Typography, IconButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
+import { Box, Drawer, List, Typography, ListItemIcon, ListItemText, Divider, ListItemButton } from '@mui/material';
 
 import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
 import MailOutlineTwoToneIcon from '@mui/icons-material/MailOutlineTwoTone';
@@ -26,7 +26,7 @@ export const Sidebar = () => {
                 <List>
                     {
                         menuItems.map((text, index) => (
-                            <ListItem button key={text}>
+                            <ListItemButton key={text}>
                                 <ListItemIcon>
                                     {index % 2 ? <InboxTwoToneIcon /> : <MailOutlineTwoToneIcon />}
                                 </ListItemIcon>
@@ -34,7 +34,7 @@ export const Sidebar = () => {
                                     {text}
                                 </ListItemText>
 
-                            </ListItem>
+                            </ListItemButton>
                         ))
                     }
                 </List>
