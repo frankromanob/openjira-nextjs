@@ -23,3 +23,4 @@ export const Layout = ({ title = 'OpenJira - RomApps', children }: PropsWithChil
         </Box>
     )
 }
+
