@@ -6,7 +6,9 @@ import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
+
 export default function HomePage() {
+
   return (
     <Layout title='OpenJira - Homepage'>
       <Grid container spacing={2}>
@@ -25,7 +27,7 @@ export default function HomePage() {
           <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <CardHeader title="En proceso" />
             <CardContent>
-              <EntriesList  status='in-progress' />
+              <EntriesList status='in-progress' />
             </CardContent>
           </Card>
         </Grid>
@@ -34,7 +36,7 @@ export default function HomePage() {
           <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <CardHeader title="Completadas" />
             <CardContent>
-              <EntriesList  status='finished' />
+              <EntriesList status='finished' />
             </CardContent>
           </Card>
         </Grid>

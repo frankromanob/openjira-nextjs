@@ -2,36 +2,45 @@ import { Box, Button, TextField } from "@mui/material"
 import SaveTwoToneIcon from '@mui/icons-material/SaveTwoTone';
 import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
 import PostAddTwoToneIcon from '@mui/icons-material/PostAddTwoTone';
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
+import { EntriesContext } from "@/context/entries";
+import { UIContext } from "@/context/ui";
 
 
 export const NewEntry = () => {
-    const [showAddForm, setShowAddForm] = useState(false);
+   // const [showAddForm, setShowAddForm] = useState(false);
 
     const [inputValue, setInputValue] = useState('')
     const [touched, setTouched] = useState(false)
+
+    const { addNewEntry } = useContext(EntriesContext)
+    const {isAdding,setIsAddingEntry}= useContext(UIContext)
 
     const onTextFieldChanged = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     }
 
     const handleClick = () => {
-        setShowAddForm(true);
+        setIsAddingEntry(true);
         setTouched(false)
     }
 
     const handleShowInput = () => {
-        setShowAddForm(false)
+        setIsAddingEntry(false)
+        setInputValue('')
     }
 
     const onSave = ()=>{
         if (inputValue.length===0) return;
-        console.log({inputValue});
+        addNewEntry(inputValue)
+        setInputValue('')
+        setTouched(false)
+        setIsAddingEntry(false)
     }
 
     return (
         <Box sx={{ marginBottom: 2, paddingX: 2 }}>
-            {!showAddForm && <Button
+            {!isAdding && <Button
                 startIcon={<PostAddTwoToneIcon />}
                 fullWidth
                 variant="outlined"
@@ -39,7 +48,7 @@ export const NewEntry = () => {
             >
                 Agregar Tarea
             </Button>}
-            {showAddForm && <>
+            {isAdding && <>
                 <TextField
                     sx={{ marginTop: 2, marginBottom: 1 }}
                     fullWidth
