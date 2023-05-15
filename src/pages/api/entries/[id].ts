@@ -10,7 +10,7 @@ type Data =
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
     const { id } = req.query;
-
+    console.log(req.method)
     if (!mongoose.isValidObjectId(id)) {
         return res.status(400).json({ message: 'El Id no es válido ' + id })
     }
@@ -20,7 +20,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
             return updateEntry(req, res);
         case 'GET':
             return findEntry(req, res);
-
+        case 'DELETE':
+            return deleteEntry(req, res);
         default:
             return res.status(400).json({ message: 'Metodo no válido ' });
     }
@@ -56,7 +57,7 @@ const updateEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     if (!entryToUpdate) {
         await db.disconnect()
-        return res.status(400).json({ message: 'Id no existe: ' + id })
+        return res.status(400).json({ message: 'Id does not exist: ' + id })
     }
 
 
@@ -78,3 +79,26 @@ const updateEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 }
 
 
+const deleteEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const { id } = req.query;
+
+    await db.connect()
+
+    const entryToDelete = await Entry.findById(id);
+
+    if (!entryToDelete) {
+        await db.disconnect()
+        return res.status(400).json({ message: 'Id does not exist: ' + id })
+    }
+
+    try {
+        await entryToDelete.deleteOne()
+        await db.disconnect()
+        return res.status(200).json(entryToDelete)
+    } catch {
+        await db.disconnect()
+        return res.status(400).json({ message: 'Cannot delete' })
+    }
+
+}

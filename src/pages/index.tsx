@@ -4,6 +4,7 @@ import { EntriesList, NewEntry } from '@/components/ui'
 import { Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { Inter } from 'next/font/google'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 

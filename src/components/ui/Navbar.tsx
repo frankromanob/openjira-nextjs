@@ -1,7 +1,8 @@
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material"
+import { AppBar, Card, Link, IconButton, Toolbar, Typography } from "@mui/material"
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import { useContext } from "react";
 import { UIContext } from "@/context/ui";
+import NextLink from "next/link";
 
 export const Navbar = () => {
 
@@ -17,7 +18,11 @@ export const Navbar = () => {
         >
           <MenuTwoToneIcon />
         </IconButton>
-        <Typography variant="h5">OpenJira</Typography>
+        <NextLink href='/' passHref>
+          <Link underline='none' color='white'>
+            <Typography variant="h5">OpenJira</Typography>
+          </Link>
+        </NextLink>
       </Toolbar>
     </AppBar>
   )

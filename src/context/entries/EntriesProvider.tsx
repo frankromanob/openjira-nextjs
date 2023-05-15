@@ -1,7 +1,6 @@
 import { PropsWithChildren, useEffect, useReducer } from 'react';
 import { entriesReducer, EntriesContext } from '.';
 import { Entry } from '@/interfaces';
-import { v4 as uuidv4 } from 'uuid';
 import { entriesApi } from '@/apis';
 
 export interface EntriesState {
@@ -32,6 +31,16 @@ export const EntriesProvider = ({ children }: PropsWithChildren) => {
       await entriesApi.post('/entries', entry)
    }
 
+   const deleteEntry = async (entry: Entry) => {
+      //dispatch({ type: 'Entries - DeleteEntry', payload: entry })
+      try{
+         await entriesApi.delete<Entry>(`/entries/${entry._id}`)
+         refreshEntries()
+      }catch(error){
+
+      }
+   }
+
    const updateEntry = async (entry: Entry) => {
       try {
          const { data } = await entriesApi.put<Entry>(`/entries/${entry._id}`, { description: entry.description, status: entry.status })
@@ -60,6 +69,8 @@ export const EntriesProvider = ({ children }: PropsWithChildren) => {
          //Methods
          addNewEntry,
          updateEntry,
+         deleteEntry,
+         refreshEntries,
       }}>
          {children}
       </EntriesContext.Provider>
