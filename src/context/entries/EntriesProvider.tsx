@@ -16,15 +16,8 @@ export const EntriesProvider = ({ children }: PropsWithChildren) => {
    const [state, dispatch] = useReducer(entriesReducer, Entries_INITIAL_STATE)
 
    const addNewEntry = async (description: string) => {
-      // const newEntry: Entry = {
-      //    _id:uuidv4(),
-      //    description: description,
-      //    createdAt: Date.now(),
-      //    status: 'pending'
-      // }
       const { data } = await entriesApi.post<Entry>('/entries', { description })
       dispatch({ type: 'Entries - AddEntry', payload: data })
-      //addEntryDb(newEntry)
    }
 
    const addEntryDb = async (entry: Entry) => {
@@ -43,8 +36,8 @@ export const EntriesProvider = ({ children }: PropsWithChildren) => {
 
    const updateEntry = async (entry: Entry) => {
       try {
-         const { data } = await entriesApi.put<Entry>(`/entries/${entry._id}`, { description: entry.description, status: entry.status })
-         await entriesApi.post('/entries', data)
+         await entriesApi.put<Entry>(`/entries/${entry._id}`, { description: entry.description, status: entry.status })
+         //await entriesApi.post('/entries', data)
          refreshEntries()
       } catch (error) {
 

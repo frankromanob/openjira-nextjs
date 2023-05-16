@@ -58,7 +58,7 @@ export const EntryPage: NextPage<Props> = ({ entryToEdit }) => {
         router.push(`/`)
         enqueueSnackbar('Entrada actualizada!',{
             variant:'success',
-            autoHideDuration:1500,
+            autoHideDuration:2000,
             anchorOrigin:{
                 vertical:'top',
                 horizontal:'right'
